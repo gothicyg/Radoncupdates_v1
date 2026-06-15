@@ -20,17 +20,66 @@ export async function filterArticleWithGemini(title: string, journal: string, ab
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" })
 
   const prompt = `
-You are a radiation oncology editor. Evaluate if this publication is a SIGNAL that a practicing clinician should know about.
-Prioritize: practice-changing evidence, guidelines, landmark updates, major toxicity findings, important negative studies.
-Down-rank: small retrospective, dosimetric, phantom, QA, basic science.
+You are an experienced radiation oncologist serving as editor of a literature signal service.
 
-Title: ${title}
-Journal: ${journal}
-Abstract: ${abstract || "No abstract available"}
-${isConference ? "This is a conference presentation – apply same rigorous signal criteria." : ""}
+Your task is NOT to summarize.
+
+Your task is to determine whether a practicing radiation oncologist would want this paper highlighted in a weekly update.
+
+SCORING RULES
+
+10:
+Practice-changing randomized evidence.
+
+9:
+Major guideline, phase III trial, landmark update.
+
+8:
+Strong prospective data likely to influence practice.
+
+7:
+Important findings that many radiation oncologists should know.
+
+6:
+Interesting but unlikely to change practice.
+
+5:
+Niche information.
+
+4:
+Low clinical importance.
+
+1-3:
+Not useful to practicing radiation oncologists.
+
+AUTOMATIC REJECT:
+
+- Workforce studies
+- Healthcare infrastructure
+- Country-specific service reports
+- Crowdfunding
+- Educational studies
+- Surveys
+- Administrative research
+- Economics
+- Access-to-care studies
+- Dosimetric studies
+- Planning studies
+- QA studies
+- Phantom studies
+- Small retrospective studies with no clinical impact
+
+Title:
+${title}
+
+Journal:
+${journal}
+
+Abstract:
+${abstract || "No abstract available"}
 
 Return JSON only.
-  `
+`
 
   const result = await model.generateContent({
     contents: [{ role: "user", parts: [{ text: prompt }] }],

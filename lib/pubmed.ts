@@ -35,17 +35,31 @@ function extractAbstract(xml: string, pmid: string): string | null {
 
 export async function fetchPubMedArticles(daysBack = 30) {
   const query =
-    `("int j radiat oncol biol phys"[journal] OR ` +
-    `"radiother oncol"[journal] OR ` +
-    `"pract radiat oncol"[journal] OR ` +
-    `"j clin oncol"[journal] OR ` +
-    `"lancet oncol"[journal]) ` +
-    `AND ("last ${daysBack} days"[dp])`
-
+      `(
+    "int j radiat oncol biol phys"[journal]
+    OR "radiother oncol"[journal]
+    OR "pract radiat oncol"[journal]
+    OR "j clin oncol"[journal]
+    OR "lancet oncol"[journal]
+  )
+  AND
+  (
+    radiotherapy[Title/Abstract]
+    OR radiation[Title/Abstract]
+    OR SBRT[Title/Abstract]
+    OR stereotactic[Title/Abstract]
+    OR brachytherapy[Title/Abstract]
+    OR IMRT[Title/Abstract]
+    OR VMAT[Title/Abstract]
+    OR proton[Title/Abstract]
+    OR radiosurgery[Title/Abstract]
+  )
+  AND
+  ("last ${daysBack} days"[dp])`
   const searchUrl =
     `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi` +
     `?db=pubmed&term=${encodeURIComponent(query)}` +
-    `&retmax=20&retmode=json`
+    `&retmax=10&retmode=json`
 
   const searchRes = await axios.get(searchUrl)
 
@@ -77,7 +91,6 @@ export async function fetchPubMedArticles(daysBack = 30) {
     const doc = result[id]
 
     if (!doc) continue
-    console.log(doc)
     articles.push({
       pmid: id,
       title: doc.title,
