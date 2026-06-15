@@ -5,7 +5,10 @@ export default async function AdminPage() {
   const { data: articles } = await supabaseAdmin
     .from('articles')
     .select('*')
-    .order('created_at', { ascending: false })
+    .eq('status', 'PENDING')
+    .order('publication_date', {
+        ascending: false
+        })
 
   return (
     <main className="min-h-screen bg-[#F7F8FA] text-black">

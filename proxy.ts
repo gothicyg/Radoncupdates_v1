@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   if (!req.nextUrl.pathname.startsWith('/admin')) {
     return NextResponse.next()
   }
@@ -11,8 +11,8 @@ export function middleware(req: NextRequest) {
     return new Response('Authentication required', {
       status: 401,
       headers: {
-        'WWW-Authenticate': 'Basic'
-      }
+        'WWW-Authenticate': 'Basic realm="Admin Area"',
+      },
     })
   }
 
@@ -23,7 +23,10 @@ export function middleware(req: NextRequest) {
 
   if (password !== process.env.ADMIN_PASSWORD) {
     return new Response('Unauthorized', {
-      status: 401
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Admin Area"',
+      },
     })
   }
 
@@ -31,5 +34,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*']
+  matcher: ['/admin/:path*'],
 }

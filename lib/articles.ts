@@ -22,7 +22,10 @@ export async function getArticlesByDiseaseSite(
     .from('articles')
     .select('*')
     .eq('disease_site', diseaseSite)
-    .order('created_at', { ascending: false })
+    .eq('status', 'APPROVED')
+    .order('publication_date', {
+      ascending: false,
+    })
 
   if (error) {
     throw error

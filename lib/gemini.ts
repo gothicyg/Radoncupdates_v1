@@ -124,6 +124,68 @@ Classify:
 6. selection_rationale
 7. one_sentence_clinical_reason
 
+DISEASE SITE RULES
+
+Breast:
+Breast cancer
+
+GU:
+Prostate
+Bladder
+Kidney
+Renal
+Testicular
+Penile
+
+GI:
+Rectal
+Colon
+Esophageal
+Gastric
+Pancreatic
+Hepatobiliary
+Anal
+
+Lung / Thoracic:
+NSCLC
+SCLC
+Lung
+Mesothelioma
+Thoracic
+
+Gynecologic:
+Cervix
+Endometrial
+Ovarian
+Vulvar
+Vaginal
+
+Head and Neck:
+Oropharynx
+Larynx
+Nasopharynx
+Hypopharynx
+Oral cavity
+Salivary gland
+
+CNS:
+Glioma
+Glioblastoma
+Meningioma
+Brain metastases
+
+Pediatrics:
+Any pediatric malignancy
+
+Hematologic:
+Leukemia
+Lymphoma
+Myeloma
+Total body irradiation
+
+Miscellaneous:
+Anything else
+
 Title:
 ${title}
 
