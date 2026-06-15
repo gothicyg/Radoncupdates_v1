@@ -8,7 +8,7 @@ export default async function HomePage() {
     <main className="min-h-screen bg-[#F7F8FA]" style={{ fontFamily: "'Inter', sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
 
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto px-6 py-12">
 
         <div className="mb-10 border-b border-gray-200 pb-8">
           <h1 style={{ fontFamily: "'DM Serif Display', serif" }} className="text-5xl text-gray-900 tracking-tight mb-2">

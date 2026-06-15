@@ -14,7 +14,7 @@ export default async function DiseasePage({
 
   return (
     <main className="min-h-screen bg-[#F7F8FA]">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-3xl mx-auto px-6 py-12">
 
         <Link
           href="/"
@@ -23,11 +23,11 @@ export default async function DiseasePage({
           ← Home
         </Link>
 
-        <h1 className="text-4xl font-bold mt-4 mb-8">
+        <h1 className="text-4xl font-bold mt-6 mb-10">
           {disease}
         </h1>
 
-        <div className="space-y-5">
+        <div className="space-y-6">
           {articles.map((article: any) => (
             <div
               key={article.id}
@@ -40,12 +40,13 @@ export default async function DiseasePage({
                 {article.title}
               </Link>
 
-              <div className="text-gray-500 mt-2">
+              <div className="text-sm text-gray-500 mt-2">
                 {article.journal}
               </div>
             </div>
           ))}
         </div>
+
       </div>
     </main>
   )

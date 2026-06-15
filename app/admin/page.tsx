@@ -8,41 +8,39 @@ export default async function AdminPage() {
     .order('created_at', { ascending: false })
 
   return (
-    <main className="p-8">
-      <h1 className="text-3xl font-bold mb-6">
-        Admin Dashboard
-      </h1>
+    <main className="min-h-screen bg-[#F7F8FA]">
+      <div className="max-w-5xl mx-auto px-6 py-12">
 
-      <div className="space-y-4">
-        {articles?.map((article) => (
-          <div
-            key={article.id}
-            className="border rounded p-4"
-          >
-            <h2 className="font-semibold">
-              {article.title}
-            </h2>
+        <h1 className="text-4xl font-bold mb-10">
+          Editorial Dashboard
+        </h1>
 
-            <div>Status: {article.status}</div>
+        <div className="space-y-6">
+          {articles?.map((article) => (
+            <div
+              key={article.id}
+              className="bg-white border rounded-xl p-6"
+            >
+              <h2 className="text-xl font-semibold mb-3">
+                {article.title}
+              </h2>
 
-            <div>
-              Disease Site: {article.disease_site}
+              <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
+                <div>Status: {article.status}</div>
+                <div>Site: {article.disease_site}</div>
+                <div>Type: {article.article_type}</div>
+                <div>Score: {article.relevance_score}/10</div>
+              </div>
+
+              <div className="text-gray-700 mb-5">
+                {article.selection_rationale}
+              </div>
+
+              <AdminActions id={article.id} />
             </div>
+          ))}
+        </div>
 
-            <div>
-              Recommendation:
-              {' '}
-              {article.recommendation}
-            </div>
-
-            <div>
-              Relevance:
-              {' '}
-              {article.relevance_score}
-            </div>
-            <AdminActions id={article.id} />
-          </div>
-        ))}
       </div>
     </main>
   )

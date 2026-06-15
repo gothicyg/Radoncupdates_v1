@@ -20,54 +20,109 @@ export async function filterArticleWithGemini(title: string, journal: string, ab
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" })
 
   const prompt = `
-You are an experienced radiation oncologist serving as editor of a literature signal service.
+You are the editor of Radiation Oncology Signals.
 
-Your task is NOT to summarize.
+Your role is to identify clinically meaningful publications for practicing radiation oncologists.
 
-Your task is to determine whether a practicing radiation oncologist would want this paper highlighted in a weekly update.
+A SIGNAL is a publication that could:
+- Change clinical practice
+- Influence treatment decisions
+- Influence toxicity management
+- Influence patient counseling
+- Introduce a major guideline update
+- Introduce important new technology or AI workflow
+- Report important positive or negative randomized evidence
 
-SCORING RULES
+SCORING FRAMEWORK
 
-10:
-Practice-changing randomized evidence.
+START AT 0.
 
-9:
-Major guideline, phase III trial, landmark update.
+Add points:
 
-8:
-Strong prospective data likely to influence practice.
++5
+Phase III randomized trial
 
-7:
-Important findings that many radiation oncologists should know.
++5
+Major guideline (ASTRO, ESTRO, NCCN, ASCO, ESMO)
 
-6:
-Interesting but unlikely to change practice.
++4
+Meta-analysis of high-quality studies
 
-5:
-Niche information.
++4
+Practice-changing prospective study
 
-4:
-Low clinical importance.
++3
+Phase II trial with clinically meaningful findings
 
-1-3:
-Not useful to practicing radiation oncologists.
++3
+Major toxicity or quality-of-life findings
 
-AUTOMATIC REJECT:
++3
+Important radiotherapy technology with direct clinical relevance
 
-- Workforce studies
-- Healthcare infrastructure
-- Country-specific service reports
-- Crowdfunding
-- Educational studies
-- Surveys
-- Administrative research
-- Economics
-- Access-to-care studies
-- Dosimetric studies
-- Planning studies
-- QA studies
-- Phantom studies
-- Small retrospective studies with no clinical impact
++2
+AI application directly affecting radiation oncology workflow
+
+Subtract points:
+
+-5
+Workforce study
+
+-5
+Infrastructure study
+
+-5
+Healthcare access study
+
+-5
+Country-specific service report
+
+-5
+Crowdfunding study
+
+-4
+Educational study
+
+-4
+Survey study
+
+-4
+Administrative study
+
+-4
+Economic analysis without clinical impact
+
+-3
+Dosimetric study
+
+-3
+Planning comparison
+
+-3
+QA study
+
+-3
+Phantom study
+
+-2
+Small retrospective study
+
+Interpretation:
+
+0-3 = REJECT
+4-6 = REVIEW
+7-8 = INCLUDE
+9-10 = HIGH PRIORITY INCLUDE
+
+Classify:
+
+1. relevance_score (1-10)
+2. confidence_score (1-10)
+3. article_type
+4. disease_site
+5. recommendation
+6. selection_rationale
+7. one_sentence_clinical_reason
 
 Title:
 ${title}
