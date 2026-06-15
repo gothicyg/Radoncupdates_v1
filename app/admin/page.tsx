@@ -8,7 +8,7 @@ export default async function AdminPage() {
     .order('created_at', { ascending: false })
 
   return (
-    <main className="min-h-screen bg-[#F7F8FA]">
+    <main className="min-h-screen bg-[#F7F8FA] text-black">
       <div className="max-w-5xl mx-auto px-6 py-12">
 
         <h1 className="text-4xl font-bold mb-10">

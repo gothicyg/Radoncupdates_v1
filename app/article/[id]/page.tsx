@@ -18,7 +18,7 @@ export default async function ArticlePage({
   if (!article) notFound()
 
   return (
-    <main className="min-h-screen bg-[#F7F8FA]">
+    <main className="min-h-screen bg-[#F7F8FA] text-black">
       <div className="max-w-3xl mx-auto px-6 py-12">
 
         <Link

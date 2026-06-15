@@ -22,19 +22,37 @@ export default function AdminActions({
   }
 
   return (
-    <div className="flex gap-2 mt-3">
+    <div className="flex gap-3 mt-5">
       <button
         onClick={approve}
-        className="border px-3 py-1 rounded"
+        className="
+          px-4 py-2
+          bg-green-600
+          text-white
+          rounded-lg
+          font-medium
+          hover:bg-green-700
+          transition
+          cursor-pointer
+        "
       >
-        Approve
+        ✓ Approve
       </button>
 
       <button
         onClick={reject}
-        className="border px-3 py-1 rounded"
+        className="
+          px-4 py-2
+          bg-red-600
+          text-white
+          rounded-lg
+          font-medium
+          hover:bg-red-700
+          transition
+          cursor-pointer
+        "
       >
-        Reject
+        ✕ Reject
       </button>
     </div>
   )
